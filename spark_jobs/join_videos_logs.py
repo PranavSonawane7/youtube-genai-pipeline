@@ -5,13 +5,12 @@ spark = SparkSession.builder \
     .appName("JoinYouTubeWithViewerLogs") \
     .getOrCreate()
 
-# Load video data
+
 videos_df = spark.read.option("header", True).csv("data/processed/youtube_data_with_summary.csv")
 
-# Load viewer logs
 logs_df = spark.read.option("multiline", "true").json("data/logs/viewer_logs.json")
 
-# Convert video_id if needed
+
 videos_df = videos_df.withColumnRenamed("video_id", "vid_id")
 
 # Join
